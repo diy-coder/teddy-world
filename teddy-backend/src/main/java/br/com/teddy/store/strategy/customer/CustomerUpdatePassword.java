@@ -3,13 +3,16 @@ package br.com.teddy.store.strategy.customer;
 import br.com.teddy.store.dao.customer.CustomerDAO;
 import br.com.teddy.store.domain.Customer;
 import br.com.teddy.store.domain.DomainEntity;
+import br.com.teddy.store.domain.EnumOperation;
 import br.com.teddy.store.strategy.IStrategy;
+import br.com.teddy.store.strategy.StrategyAnnotation;
 import br.com.teddy.store.utils.validators.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@StrategyAnnotation(target = Customer.class, operation = EnumOperation.UPDATE_PASSWORD)
 public class CustomerUpdatePassword implements IStrategy {
     @Autowired
     private PasswordEncoder passwordEncoder;

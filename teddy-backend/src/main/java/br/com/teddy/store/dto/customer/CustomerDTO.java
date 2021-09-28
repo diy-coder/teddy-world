@@ -37,7 +37,9 @@ public class CustomerDTO extends AttrResponseDTO {
         this.birthDate = customer.getBirthDate();
 
         if(method.equals("GET")){
-            customer.getAddressList().forEach(a -> addressList.add(new AddressDTO(a)));
+            if(null != customer.getAddressList()) {
+                customer.getAddressList().forEach(a -> addressList.add(new AddressDTO(a)));
+            }
         }
     }
 }

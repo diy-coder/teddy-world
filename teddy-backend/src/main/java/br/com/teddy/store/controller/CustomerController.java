@@ -1,31 +1,26 @@
 package br.com.teddy.store.controller;
 
+import br.com.teddy.store.controller.generics.RestBasicController;
+import br.com.teddy.store.dao.customer.CustomerDAO;
 import br.com.teddy.store.domain.Customer;
+import br.com.teddy.store.dto.customer.CustomerDTO;
 import br.com.teddy.store.facade.Facade;
+import br.com.teddy.store.strategy.StrategyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-public class CustomerController {
+@RequestMapping("customer")
+public class CustomerController extends RestBasicController<Customer, CustomerDTO> {
+
+    private final Facade facade;
 
     @Autowired
-    private Facade facade;
-
-    @GetMapping("/customer/{id}")
-    public ResponseEntity getCustomer(@PathVariable Long id) {
-        Customer customer = new Customer();
-        customer.setId(id);
-
-        return ResponseEntity.ok(facade.get(customer));
-    }
-
-    @CrossOrigin(origins = "*")
-    @PutMapping("/customer")
-    public ResponseEntity updateCustomer(@RequestBody Customer customer) {
-        return ResponseEntity.ok(facade.update(customer));
+    public CustomerController(CustomerDAO basicService, Facade facade, StrategyFactory strategyFactory) {
+        super(basicService, strategyFactory);
+        this.facade = facade;
     }
 
     @PatchMapping("/customer")
@@ -33,23 +28,5 @@ public class CustomerController {
         return ResponseEntity.ok(facade.updatePassword(customer));
     }
 
-    @DeleteMapping("/customer/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
-        Customer customer = new Customer();
-        customer.setId(id);
-
-        return ResponseEntity.ok(facade.delete(customer));
-    }
-
-    @PostMapping("/customer")
-    public ResponseEntity newCustomer(@RequestBody Customer customer) {
-        return ResponseEntity.ok(facade.create(customer));
-    }
-
-
-    @GetMapping("/customers")
-    public ResponseEntity getAllCustomer() {
-        return ResponseEntity.ok(facade.list(new Customer()));
-    }
 }
 

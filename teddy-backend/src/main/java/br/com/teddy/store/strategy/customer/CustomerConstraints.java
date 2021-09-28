@@ -2,7 +2,9 @@ package br.com.teddy.store.strategy.customer;
 
 import br.com.teddy.store.domain.Customer;
 import br.com.teddy.store.domain.DomainEntity;
+import br.com.teddy.store.domain.EnumOperation;
 import br.com.teddy.store.strategy.IStrategy;
+import br.com.teddy.store.strategy.StrategyAnnotation;
 import br.com.teddy.store.utils.validators.Password;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@StrategyAnnotation(target = Customer.class, operation = EnumOperation.CREATE)
 public class CustomerConstraints implements IStrategy {
     @Override
     public String applyBusinessRule(DomainEntity domainEntity) {

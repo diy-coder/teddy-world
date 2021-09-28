@@ -1,10 +1,14 @@
 package br.com.teddy.store.dto;
 
-import java.time.LocalDate;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public abstract class AttrResponseDTO {
-    public Long id;
-    public LocalDateTime createdAt;
-    public LocalDateTime deletedAt;
+    protected Long id;
+    protected LocalDateTime createdAt;
+    protected LocalDateTime deletedAt;
 }
